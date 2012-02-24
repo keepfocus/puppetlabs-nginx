@@ -64,7 +64,7 @@ define nginx::resource::location(
     fail('Cannot create a location reference without a www_root or proxy defined')
   }
   if (($www_root != undef) and ($proxy != undef)) {
-    fail('Cannot define both directory and proxy in a virtual host')
+    #fail('Cannot define both directory and proxy in a virtual host')
   }
 
   ## Create stubs for vHost File Fragment Pattern

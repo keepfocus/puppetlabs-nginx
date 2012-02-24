@@ -66,6 +66,12 @@ define nginx::resource::vhost(
     }
   }
 
+  if (($www_root != undef) and ($proxy != undef)) {
+    $location = '@app'
+  } else {
+    $location = '/'
+  }
+
   # Use the File Fragment Pattern to construct the configuration files.
   # Create the base configuration file reference.
   file { "${nginx::config::nx_temp_dir}/nginx.d/${name}-001":
@@ -82,7 +88,7 @@ define nginx::resource::vhost(
     ensure             => $ensure,
     vhost              => $name,
     ssl                => $ssl,
-    location           => '/',
+    location           => $location,
     proxy              => $proxy,
     proxy_read_timeout => $proxy_read_timeout,
     www_root           => $www_root,
